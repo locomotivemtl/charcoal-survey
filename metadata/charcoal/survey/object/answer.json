@@ -1,0 +1,141 @@
+{
+    "properties":{
+        "id":{
+            "type":"id"
+        },
+        "label":{
+            "type":"string",
+            "label":{
+                "fr":"Étiquette / Réponse",
+                "en":"Label"
+            }
+        },
+        "question":{
+            "type":"object",
+            "obj_type":"charcoal/survey/object/question",
+            "label":{
+                "fr":"Question",
+                "en":"Question"
+            }
+        },
+        "position":{
+            "type":"number",
+            "label":{
+                "fr":"Position",
+                "en":"Position"
+            }
+        }
+    },
+
+
+    "sources":{
+        "default":{
+            "table":"survey_answers"
+        }
+    },
+    "default_source":"default",
+
+    "admin":{
+        "lists":{
+            "default":{
+                "properties":[
+                    "label"
+                ],
+                "orders":[{
+                    "property":"created",
+                    "mode":"desc"
+                }]
+            }
+        },
+        "default_list":"default",
+
+        "forms":{
+            "default":{
+                "label":{
+
+                },
+                "groups":{
+                    "info":{
+                        "show_header":false,
+                        "title":{
+                            "fr":"Informations",
+                            "en":"Informations"
+                        },
+                        "layout":{
+                            "structure":[
+                                { "columns":[1] },
+                                { "columns":[1] }
+                            ]
+                        },
+                        "properties":[
+                            "label",
+                            "question"
+                        ]
+                    }
+                },
+                "sidebars":{
+                    "actions":{
+                        "title":"Question",
+                        "properties":[
+                            "question"
+                        ],
+                        "actions":{
+                            "test":{
+                                "label":{
+                                    "fr":"Retour à la question"
+                                },
+                                "url":"admin/object/edit?obj_type=charcoal/survey/object/question&obj_id={{question}}",
+                                "type":"default",
+                                "condition":"{{question}}"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "default_form":"default",
+
+        "dashboards": {
+            "admin.edit": {
+                "title":"Choix de réponse",
+                "layout": {
+                    "structure": [
+                        { "columns": [ 1 ] }
+                    ]
+                },
+                "widgets": {
+                    "form": {
+                        "type": "charcoal/admin/widget/objectForm",
+                        "form_ident": "default",
+                        "obj_type": "charcoal/survey/object/answer",
+                        "group_display_mode":"tab"
+                    }
+                },
+                "sidemenu":{
+                    "widget_type":"charcoal/admin/widget/survey/sidemenu/content"
+                }
+            },
+            "admin.table": {
+                "title": "Liste des choix de réponse",
+                "layout": {
+                    "structure": [
+                        { "columns": [ 1 ] }
+                    ]
+                },
+                "widgets": {
+                    "form": {
+                        "type": "charcoal/admin/widget/table",
+                        "collection_ident": "default",
+                        "obj_type": "charcoal/survey/object/answer"
+                    }
+                },
+                "sidemenu":{
+                    "widget_type":"charcoal/admin/widget/survey/sidemenu/content"
+                }
+            }
+        },
+        "default_create_dashboard": "admin.edit",
+        "default_edit_dashboard": "admin.edit",
+        "default_collection_dashboard": "admin.table"
+    }
+}

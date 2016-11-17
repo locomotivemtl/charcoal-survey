@@ -1,0 +1,54 @@
+{
+    "properties": {
+        "id": {
+            "type": "id",
+            "label": "ID"
+        },
+        "answer": {
+            "type": "object",
+            "obj_type":"charcoal/survey/object/answer",
+            "label": {
+                "en": "Answer",
+                "fr": "Réponse"
+            }
+        },
+        "question": {
+            "type": "object",
+            "obj_type":"charcoal/survey/object/question",
+            "label": {
+                "en": "Question",
+                "fr": "Question"
+            }
+        },
+        "survey": {
+            "type": "object",
+            "obj_type":"charcoal/survey/object/survey",
+            "label": {
+                "en": "Survey",
+                "fr": "Sondage"
+            }
+        },
+        "ts":{
+            "type":"date-time",
+            "label":{
+                "fr":"Date de la réponse",
+                "en":"Answer's date"
+            }
+        },
+        "ip":{
+            "type":"ip",
+            "label":{
+                "fr":"Adresse IP de l'utilisateur",
+                "en":"IP Address"
+            }
+        }
+    },
+
+    "sources": {
+        "default": {
+            "type": "database",
+            "table": "survey_participations"
+        }
+    },
+    "default_source": "default"
+}

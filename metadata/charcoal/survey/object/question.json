@@ -1,0 +1,182 @@
+{
+    "properties":{
+        "id":{
+            "type":"id"
+        },
+        "question":{
+            "type":"string",
+            "label":{
+                "fr":"Question",
+                "en":"Question"
+            }
+        },
+        "survey":{
+            "type":"object",
+            "obj_type":"charcoal/survey/object/survey",
+            "label":{
+                "fr":"Questionnaire",
+                "en":"Survey"
+            }
+        },
+        "position":{
+            "type":"number",
+            "label":{
+                "fr":"Position",
+                "en":"Position"
+            }
+        }
+    },
+    "sources":{
+        "default":{
+            "table":"survey_questions"
+        }
+    },
+    "default_source":"default",
+
+    "admin":{
+        "lists":{
+            "default":{
+                "properties":[
+                    "question"
+                ],
+                "orders":[{
+                    "property":"created",
+                    "mode":"desc"
+                }]
+            }
+        },
+        "default_list":"default",
+
+        "forms":{
+            "default":{
+                "label":{
+
+                },
+                "groups":{
+                    "info":{
+                        "show_header":false,
+                        "title":{
+                            "fr":"Informations",
+                            "en":"Informations"
+                        },
+                        "layout":{
+                            "structure":[{
+                                "columns":[ 1 ]
+                            },{
+                                "columns":[ 1 ]
+                            }]
+                        },
+                        "properties":[
+                            "question",
+                            "survey"
+                        ]
+                    },
+                    "table":{
+                        "show_header":false,
+                        "title":{
+                            "fr":"Choix de réponse",
+                            "en":"Answer choices"
+                        },
+                        "template":"survey/widget/form-group/widget",
+                        "type":"survey/widget/form-group/widget",
+                        "widget_type":"charcoal/admin/widget/table",
+                        "obj_type":"charcoal/survey/object/answer",
+                        "collection_ident": "default",
+                        "priority":7000,
+                        "sortable":true,
+                        "renderable_data":{
+                            "collection_config":{
+                                "properties":[
+                                    "name"
+                                ],
+                                "orders":[{
+                                    "property":"position",
+                                    "mode":"asc"
+                                }],
+                                "filters":[
+                                    {
+                                        "property":"question",
+                                        "val":"{{id}}"
+                                    }
+                                ],
+                                "pagination":{
+                                    "num_per_page":100
+                                },
+                                "list_actions":[{
+                                    "label":{
+                                        "fr":"Nouveau choix de réponse",
+                                        "en":"New answer"
+                                    },
+                                    "ident":"create",
+                                    "url":"object/edit?obj_type=charcoal/survey/object/answer&form_data[question]={{id}}"
+                                }]
+                            }
+                        }
+                    }
+                },
+                "sidebars":{
+                    "actions":{
+                        "title":"Questionnaire",
+                        "properties":[
+                            "survey"
+                        ],
+                        "actions":{
+                            "test":{
+                                "label":{
+                                    "fr":"Retour au questionnaire"
+                                },
+                                "url":"admin/object/edit?obj_type=charcoal/survey/object/survey&obj_id={{survey}}",
+                                "type":"default",
+                                "condition":"{{survey}}"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "default_form":"default",
+
+        "dashboards": {
+            "admin.edit": {
+                "title":"Question",
+                "layout": {
+                    "structure": [
+                        { "columns": [ 1 ] }
+                    ]
+                },
+                "widgets": {
+                    "form": {
+                        "type": "charcoal/admin/widget/objectForm",
+                        "form_ident": "default",
+                        "obj_type": "charcoal/survey/object/question",
+                        "group_display_mode":"tab"
+                    }
+                },
+                "sidemenu":{
+                    "widget_type":"charcoal/admin/widget/survey/sidemenu/content"
+                }
+            },
+            "admin.table": {
+                "title": "Liste des questions",
+                "layout": {
+                    "structure": [
+                        { "columns": [ 1 ] }
+                    ]
+                },
+                "widgets": {
+                    "form": {
+                        "type": "charcoal/admin/widget/table",
+                        "collection_ident": "default",
+                        "obj_type": "charcoal/survey/object/question"
+                    }
+                },
+                "sidemenu":{
+                    "widget_type":"charcoal/admin/widget/survey/sidemenu/content"
+                }
+            }
+        },
+        "default_create_dashboard": "admin.edit",
+        "default_edit_dashboard": "admin.edit",
+        "default_collection_dashboard": "admin.table"
+    }
+}

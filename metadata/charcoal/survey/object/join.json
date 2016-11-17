@@ -1,0 +1,54 @@
+{
+    "properties": {
+        "id": {
+            "type": "id",
+            "label": "ID"
+        },
+        "active": {
+            "type": "boolean",
+            "label": {
+                "en": "Active",
+                "fr": "Actif"
+            }
+        },
+        "source_type": {
+            "type": "string",
+            "label": {
+                "en": "Source Type",
+                "fr": "Type de la l'objet source"
+            }
+        },
+        "source_id": {
+            "type": "string",
+            "label": {
+                "en": "Source ID",
+                "fr": "ID de l'objet source"
+            }
+        },
+        "target_id": {
+            "type": "string",
+            "label": {
+                "en": "Target ID",
+                "fr": "ID de l'objet cible"
+            }
+        },
+        "target_type": {
+            "type": "string",
+            "label": {
+                "en": "Target Type",
+                "fr": "Type de l'objet cible"
+            }
+        },
+        "position": {
+            "type": "number"
+        }
+    },
+
+    "sources": {
+        "default": {
+            "type": "database",
+            "table": "charcoal_survey_joins"
+        }
+    },
+    "default_source": "default"
+}

@@ -1,0 +1,195 @@
+{
+    "properties":{
+        "id":{
+            "type":"id"
+        },
+        "name":{
+            "type":"string",
+            "label":{
+                "fr":"Nom",
+                "en":"Name"
+            }
+        },
+        "feedback_title":{
+            "type":"string",
+            "label":{
+                "fr":"Titre du message à la fin du questionnaire",
+                "en":"End of survey title"
+            }
+        },
+        "feedback_message":{
+            "type":"string",
+            "label":{
+                "fr":"Message à la fin du questionnaire",
+                "en":"End of survey message"
+            }
+        },
+        "position":{
+            "type":"number",
+            "label":{
+                "fr":"Position",
+                "en":"Position"
+            }
+        }
+    },
+
+    "slug_pattern":{
+        "fr":"sondage/{{name}}",
+        "en":"survey/{{name}}"
+    },
+
+    "sources":{
+        "default":{
+            "table":"survey_surveys"
+        }
+    },
+    "default_source":"default",
+
+    "admin":{
+        "lists":{
+            "default":{
+                "properties":[
+                    "name"
+                ],
+                "orders":[{
+                    "property":"created",
+                    "mode":"desc"
+                }],
+                "list_actions":[{
+                    "label":{
+                        "fr":"Nouveau sondage",
+                        "en":"New survey"
+                    },
+                    "ident":"create",
+                    "url":"object/edit?obj_type=charcoal/survey/object/survey"
+                }]
+            }
+        },
+        "default_list":"default",
+
+        "forms":{
+            "default":{
+                "label":{
+
+                },
+                "groups":{
+                    "info":{
+                        "show_header":false,
+                        "title":{
+                            "fr":"Informations",
+                            "en":"Informations"
+                        },
+                        "properties":[
+                            "name",
+                            "feedback_title",
+                            "feedback_message"
+                        ]
+                    },
+                    "table":{
+                        "show_header":false,
+                        "title":{
+                            "fr":"Questions",
+                            "en":"Questions"
+                        },
+                        "template":"survey/widget/form-group/widget",
+                        "type":"survey/widget/form-group/widget",
+                        "widget_type":"charcoal/admin/widget/table",
+                        "obj_type":"charcoal/survey/object/question",
+                        "collection_ident": "default",
+                        "priority":7000,
+                        "sortable":true,
+                        "renderable_data":{
+                            "collection_config":{
+                                "properties":[
+                                    "name"
+                                ],
+                                "orders":[{
+                                    "property":"position",
+                                    "mode":"asc"
+                                }],
+                                "filters":[
+                                    {
+                                        "property":"survey",
+                                        "val":"{{id}}"
+                                    }
+                                ],
+                                "pagination":{
+                                    "num_per_page":100
+                                },
+                                "list_actions":[{
+                                    "label":{
+                                        "fr":"Nouvelle question",
+                                        "en":"New question"
+                                    },
+                                    "ident":"create",
+                                    "url":"object/edit?obj_type=charcoal/survey/object/question&form_data[survey]={{id}}"
+                                }]
+                            }
+                        }
+                    },
+                    "results":{
+                        "show_header":false,
+                        "title":{
+                            "fr":"Résultats",
+                            "en":"Results"
+                        },
+                        "template":"survey/widget/form-group/widget",
+                        "type":"survey/widget/form-group/widget",
+                        "widget_type":"charcoal/admin/widget/survey-stats",
+                        "priority":8000,
+                        "renderable_data":{
+                            "survey":"{{id}}"
+                        }
+                    }
+                },
+                "sidebars":{
+                    "actions":{}
+                }
+            }
+        },
+        "default_form":"default",
+
+        "dashboards": {
+            "admin.edit": {
+                "title":"Sondage",
+                "layout": {
+                    "structure": [
+                        { "columns": [ 1 ] }
+                    ]
+                },
+                "widgets": {
+                    "form": {
+                        "type": "charcoal/admin/widget/objectForm",
+                        "form_ident": "default",
+                        "obj_type": "charcoal/survey/object/survey",
+                        "group_display_mode":"tab"
+                    }
+                },
+                "sidemenu":{
+                    "widget_type":"charcoal/admin/widget/survey/sidemenu/content"
+                }
+            },
+            "admin.table": {
+                "title": "Liste des sondages",
+                "layout": {
+                    "structure": [
+                        { "columns": [ 1 ] }
+                    ]
+                },
+                "widgets": {
+                    "form": {
+                        "type": "charcoal/admin/widget/table",
+                        "collection_ident": "default",
+                        "obj_type": "charcoal/survey/object/survey"
+                    }
+                },
+                "sidemenu":{
+                    "widget_type":"charcoal/admin/widget/survey/sidemenu/content"
+                }
+            }
+        },
+        "default_create_dashboard": "admin.edit",
+        "default_edit_dashboard": "admin.edit",
+        "default_collection_dashboard": "admin.table"
+    }
+}
